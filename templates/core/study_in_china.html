@@ -1,0 +1,265 @@
+{% extends 'base.html' %}
+
+{% block title %}Study in China Guide &amp; CSC Scholarships | Bright Edu Consultancy{% endblock %}
+
+{% block content %}
+<!-- Page Hero Banner -->
+<section class="relative bg-gradient-to-br from-red-950 via-[#0f2b5c] to-slate-950 text-white py-20 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
+        <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-red-900/60 border border-red-700/60 text-amber-300 text-xs sm:text-sm font-semibold">
+            <i class="fa-solid fa-star text-amber-400 mr-2"></i> Comprehensive China Higher Education Guide
+        </span>
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight font-serif-heading">
+            Study in China: Scholarships &amp; Admissions
+        </h1>
+        <p class="text-slate-300 text-base sm:text-lg max-w-3xl mx-auto leading-relaxed">
+            China has emerged as one of the world's top destinations for higher education, hosting over 500,000 international students with generous fully-funded government scholarships and English-taught programs.
+        </p>
+        <div class="pt-4 flex flex-wrap justify-center gap-4">
+            <a href="{% url 'portal:apply' %}" class="px-8 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm shadow-xl transition">
+                Apply for China Scholarship 2026
+            </a>
+            <a href="{% url 'universities:university_list' %}" class="px-7 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-sm border border-white/20 transition">
+                Browse Chinese Universities
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Key Advantages of China -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-100 px-3.5 py-1 rounded-full">
+                Global Advantages
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 font-serif-heading">
+                Why International Students Choose China
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200">
+                <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center text-xl mb-4">
+                    <i class="fa-solid fa-ranking-star"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900 mb-2">World-Class Rankings</h3>
+                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+                    Chinese universities like Tsinghua, Peking, Zhejiang, Fudan, and Harbin Institute of Technology consistently rank among the world's top 100 on QS and Times Higher Education.
+                </p>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200">
+                <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-xl mb-4">
+                    <i class="fa-solid fa-hand-holding-dollar"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900 mb-2">Generous Full Scholarships</h3>
+                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+                    The Chinese Government (CSC) awards thousands of full scholarships covering 100% tuition, free university apartments, and monthly cash allowances (2,500 - 3,500 RMB).
+                </p>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200">
+                <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-xl mb-4">
+                    <i class="fa-solid fa-language"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900 mb-2">English-Taught Degrees</h3>
+                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+                    Hundreds of Bachelor, Master, PhD, and MBBS medical programs are taught 100% in English by international faculty, with no Chinese HSK required for admission.
+                </p>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200">
+                <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center text-xl mb-4">
+                    <i class="fa-solid fa-shield-virus"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900 mb-2">Unmatched Safety &amp; High Tech</h3>
+                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+                    China is globally recognized as one of the safest countries in the world. High-speed rail, cashless mobile payments, and advanced research labs ensure a modern student life.
+                </p>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200">
+                <div class="w-12 h-12 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center text-xl mb-4">
+                    <i class="fa-solid fa-coins"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900 mb-2">Affordable Living Costs</h3>
+                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+                    Living costs in China average $150 to $300 USD per month for food, utilities, and transport—a fraction of the expense in the US, UK, Australia, or Canada.
+                </p>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200">
+                <div class="w-12 h-12 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center text-xl mb-4">
+                    <i class="fa-solid fa-briefcase"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900 mb-2">Global Career Prospects</h3>
+                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+                    Graduates with China experience are in huge demand by Fortune 500 multinationals, Belt &amp; Road infrastructure enterprises, and global academic research bodies.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TYPES OF SCHOLARSHIPS EXPLAINED -->
+<section class="py-20 bg-slate-50 border-t border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-100 px-3.5 py-1 rounded-full">
+                Scholarship Breakdown
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 font-serif-heading">
+                China Scholarship Types &amp; Benefits
+            </h2>
+            <p class="text-slate-600 text-sm">
+                Explore the major categories of funding available to international students.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- CSC Type A & B -->
+            <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold px-4 py-1.5 rounded-bl-xl">
+                    100% Fully Funded
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 mb-2">Chinese Government Scholarship (CSC)</h3>
+                <p class="text-xs text-slate-500 font-semibold mb-4">Type A (Bilateral Program) &amp; Type B (High-Level University Program)</p>
+                <div class="space-y-3 text-sm text-slate-700 mb-6">
+                    <div class="flex items-start"><i class="fa-solid fa-check-circle text-emerald-500 mr-2 mt-1"></i> <strong>Tuition Waiver:</strong> 100% Free Tuition for all years</div>
+                    <div class="flex items-start"><i class="fa-solid fa-check-circle text-emerald-500 mr-2 mt-1"></i> <strong>Accommodation:</strong> Free on-campus single or twin room</div>
+                    <div class="flex items-start"><i class="fa-solid fa-check-circle text-emerald-500 mr-2 mt-1"></i> <strong>Medical Insurance:</strong> Comprehensive health plan (800 RMB/yr)</div>
+                    <div class="flex items-start"><i class="fa-solid fa-check-circle text-emerald-500 mr-2 mt-1"></i> <strong>Monthly Living Allowance:</strong>
+                        <ul class="ml-4 mt-1 text-xs space-y-1">
+                            <li>• Bachelor: 2,500 RMB / month</li>
+                            <li>• Master: 3,000 RMB / month</li>
+                            <li>• PhD: 3,500 RMB / month</li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="{% url 'portal:apply' %}" class="inline-block w-full text-center py-3 bg-red-600 hover:bg-red-700 text-white font-bold text-xs rounded-xl transition">
+                    Apply for CSC Scholarship
+                </a>
+            </div>
+
+            <!-- Provincial & University Scholarships -->
+            <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-blue-600 text-white text-xs font-bold px-4 py-1.5 rounded-bl-xl">
+                    High Acceptance Rate
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 mb-2">Provincial &amp; Presidential Scholarships</h3>
+                <p class="text-xs text-slate-500 font-semibold mb-4">Zhejiang, Jiangsu, Shanghai, Guangdong &amp; Belt and Road Awards</p>
+                <div class="space-y-3 text-sm text-slate-700 mb-6">
+                    <div class="flex items-start"><i class="fa-solid fa-check-circle text-emerald-500 mr-2 mt-1"></i> <strong>Tuition Waiver:</strong> 100% Full or 50% Partial Tuition Waiver</div>
+                    <div class="flex items-start"><i class="fa-solid fa-check-circle text-emerald-500 mr-2 mt-1"></i> <strong>Free / Subsidized Dormitory:</strong> Modern university residence</div>
+                    <div class="flex items-start"><i class="fa-solid fa-check-circle text-emerald-500 mr-2 mt-1"></i> <strong>Annual Grant:</strong> 15,000 to 30,000 RMB / year lump sum</div>
+                    <div class="flex items-start"><i class="fa-solid fa-check-circle text-emerald-500 mr-2 mt-1"></i> <strong>Criteria:</strong> Available for Bachelor, Master &amp; PhD students with strong high school or undergraduate CGPA</div>
+                </div>
+                <a href="{% url 'portal:apply' %}" class="inline-block w-full text-center py-3 bg-blue-700 hover:bg-blue-800 text-white font-bold text-xs rounded-xl transition">
+                    Check Eligibility for Provincial Grants
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Required Documents Checklist -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-100 px-3.5 py-1 rounded-full">
+                Admission Checklist
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 font-serif-heading">
+                Documents Required for China Universities
+            </h2>
+            <p class="text-slate-600 text-sm">
+                Have these files ready to upload in your Bright Edu Student Portal.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="p-5 rounded-xl border border-slate-200 bg-slate-50 flex items-start space-x-3">
+                <i class="fa-solid fa-passport text-blue-700 text-xl mt-1"></i>
+                <div>
+                    <h4 class="font-bold text-slate-900 text-sm">Passport Bio Page</h4>
+                    <p class="text-xs text-slate-500">Valid for at least 12 months beyond the intended intake.</p>
+                </div>
+            </div>
+
+            <div class="p-5 rounded-xl border border-slate-200 bg-slate-50 flex items-start space-x-3">
+                <i class="fa-solid fa-certificate text-amber-600 text-xl mt-1"></i>
+                <div>
+                    <h4 class="font-bold text-slate-900 text-sm">Graduation Certificate</h4>
+                    <p class="text-xs text-slate-500">Highest diploma notarized in English or Chinese.</p>
+                </div>
+            </div>
+
+            <div class="p-5 rounded-xl border border-slate-200 bg-slate-50 flex items-start space-x-3">
+                <i class="fa-solid fa-file-lines text-emerald-600 text-xl mt-1"></i>
+                <div>
+                    <h4 class="font-bold text-slate-900 text-sm">Academic Transcripts</h4>
+                    <p class="text-xs text-slate-500">Complete official grade sheets / marksheets.</p>
+                </div>
+            </div>
+
+            <div class="p-5 rounded-xl border border-slate-200 bg-slate-50 flex items-start space-x-3">
+                <i class="fa-solid fa-heart-pulse text-red-600 text-xl mt-1"></i>
+                <div>
+                    <h4 class="font-bold text-slate-900 text-sm">Foreigner Physical Exam</h4>
+                    <p class="text-xs text-slate-500">Official medical report with blood test &amp; chest X-ray.</p>
+                </div>
+            </div>
+
+            <div class="p-5 rounded-xl border border-slate-200 bg-slate-50 flex items-start space-x-3">
+                <i class="fa-solid fa-user-shield text-purple-600 text-xl mt-1"></i>
+                <div>
+                    <h4 class="font-bold text-slate-900 text-sm">Non-Criminal Clearance</h4>
+                    <p class="text-xs text-slate-500">Police clearance certificate issued within 6 months.</p>
+                </div>
+            </div>
+
+            <div class="p-5 rounded-xl border border-slate-200 bg-slate-50 flex items-start space-x-3">
+                <i class="fa-solid fa-envelope-open-text text-cyan-600 text-xl mt-1"></i>
+                <div>
+                    <h4 class="font-bold text-slate-900 text-sm">Two Recommendation Letters</h4>
+                    <p class="text-xs text-slate-500">From Professors / Associate Professors (for Master/PhD).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQs Section -->
+<section class="py-20 bg-slate-50 border-t border-slate-200">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-extrabold text-slate-900 font-serif-heading">China Study FAQs</h2>
+            <p class="text-slate-500 text-sm mt-1">Common questions prospective students ask.</p>
+        </div>
+
+        <div class="space-y-4">
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <h4 class="font-bold text-slate-900 text-base mb-2">Can I study in China in English?</h4>
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    Yes! Over 100 top universities in China offer full degree programs in English for MBBS (Clinical Medicine), Computer Science, Artificial Intelligence, Civil Engineering, and International Trade.
+                </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <h4 class="font-bold text-slate-900 text-base mb-2">What is the deadline for CSC Scholarship applications?</h4>
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    CSC Type B university applications generally open in November and close between February and April each year for the September intake. Early applicants have the highest chance of nomination.
+                </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <h4 class="font-bold text-slate-900 text-base mb-2">Is IELTS mandatory to study in China?</h4>
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    For most Chinese universities, an English Medium of Instruction (MOI) certificate from your previous school or college is accepted in place of IELTS or TOEFL.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

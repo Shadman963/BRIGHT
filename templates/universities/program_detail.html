@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ program.title }} ({{ program.get_degree_level_display }}) - {{ university.name }} | Bright Edu Consultancy{% endblock %}
+
+{% block content %}
+<!-- Program Header -->
+<section class="bg-gradient-to-r from-slate-950 via-[#0f2b5c] to-slate-900 text-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap items-center gap-2 mb-4">
+            <a href="{% url 'universities:university_detail' university.slug %}" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs font-semibold rounded-md border border-white/20 transition">
+                <i class="fa-solid fa-arrow-left mr-1.5"></i> {{ university.name }}
+            </a>
+            <span class="px-3 py-1 bg-blue-900/80 text-blue-200 text-xs font-semibold rounded-md">
+                {{ program.get_degree_level_display }}
+            </span>
+            <span class="px-3 py-1 bg-amber-500 text-slate-950 text-xs font-bold rounded-md">
+                {{ program.get_language_of_instruction_display }}
+            </span>
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight font-serif-heading mb-3">
+            {{ program.title }}
+        </h1>
+        <p class="text-slate-300 text-base max-w-2xl flex items-center">
+            <i class="fa-solid fa-location-dot text-amber-400 mr-2"></i> {{ university.city }}, {{ university.province }} • {{ university.name }}
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-4">
+            <a href="{% url 'portal:apply' %}?university={{ university.id }}&program={{ program.id }}" class="px-8 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm shadow-xl transition flex items-center">
+                <i class="fa-solid fa-paper-plane mr-2"></i> Apply for this Program
+            </a>
+            <a href="https://wa.me/{{ site_info.WHATSAPP }}?text=Hello%20Bright%20Edu,%20I%20am%20interested%20in%20{{ program.title|urlencode }}%20at%20{{ university.name|urlencode }}." target="_blank" class="px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-sm border border-white/20 transition flex items-center">
+                <i class="fa-brands fa-whatsapp text-emerald-400 mr-2 text-base"></i> WhatsApp Inquiry
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Program Details Grid -->
+<section class="py-16 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+            
+            <!-- Left 8 Cols: Overview, Requirements, Scholarships -->
+            <div class="lg:col-span-8 space-y-8">
+                <!-- Program Overview -->
+                <div class="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+                    <h2 class="text-2xl font-bold text-slate-900 font-serif-heading">Program Overview</h2>
+                    <p class="text-slate-600 text-sm sm:text-base leading-relaxed whitespace-pre-line">
+                        {% if program.curriculum_overview %}
+                            {{ program.curriculum_overview }}
+                        {% else %}
+                            This {{ program.get_degree_level_display }} program in {{ program.title }} at {{ university.name }} provides comprehensive theoretical foundation and practical training tailored to global industry demands. Taught {{ program.get_language_of_instruction_display|lower }}, it attracts students from around the globe aiming for careers in research, industry leadership, and academic excellence.
+                        {% endif %}
+                    </p>
+                </div>
+
+                <!-- Admission Requirements -->
+                <div class="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+                    <h2 class="text-2xl font-bold text-slate-900 font-serif-heading">Admission Requirements</h2>
+                    {% if program.requirements %}
+                    <p class="text-slate-600 text-sm leading-relaxed whitespace-pre-line">
+                        {{ program.requirements }}
+                    </p>
+                    {% else %}
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li class="flex items-start"><i class="fa-solid fa-check-circle text-emerald-500 mr-2 mt-1"></i> <strong>Academic Record:</strong> Relevant previous graduation diploma with minimum 65%+ or CGPA 3.0/4.0.</li>
+                        <li class="flex items-start"><i class="fa-solid fa-check-circle text-emerald-500 mr-2 mt-1"></i> <strong>Language Proficiency:</strong> English Medium of Instruction (MOI) Certificate OR IELTS 6.0 / TOEFL / Duolingo.</li>
+                        <li class="flex items-start"><i class="fa-solid fa-check-circle text-emerald-500 mr-2 mt-1"></i> <strong>Age Limit:</strong> Bachelor (under 25), Master (under 35), PhD (under 40).</li>
+                        <li class="flex items-start"><i class="fa-solid fa-check-circle text-emerald-500 mr-2 mt-1"></i> <strong>Health:</strong> Physical fitness confirmed by Foreigner Physical Examination form.</li>
+                    </ul>
+                    {% endif %}
+                </div>
+
+                <!-- Available Scholarships for this program -->
+                {% if scholarships %}
+                <div class="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+                    <h2 class="text-2xl font-bold text-slate-900 font-serif-heading">Eligible Scholarships</h2>
+                    <div class="space-y-4">
+                        {% for s in scholarships %}
+                        <div class="p-5 rounded-xl border border-emerald-200 bg-emerald-50/50">
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="font-bold text-slate-900 text-base">{{ s.name }}</h4>
+                                <span class="px-2.5 py-0.5 rounded text-[11px] font-bold bg-emerald-100 text-emerald-800">
+                                    {{ s.get_scholarship_type_display }}
+                                </span>
+                            </div>
+                            <p class="text-xs text-slate-700 font-medium mb-1"><i class="fa-solid fa-shield-heart text-emerald-600 mr-1.5"></i> Coverage: {{ s.coverage }}</p>
+                            {% if s.monthly_stipend %}
+                            <p class="text-xs text-emerald-800 font-bold"><i class="fa-solid fa-coins text-amber-500 mr-1.5"></i> Monthly Allowance: {{ s.monthly_stipend }}</p>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Related Programs -->
+                {% if related_programs %}
+                <div class="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+                    <h3 class="text-xl font-bold text-slate-900 font-serif-heading">Other Programs at {{ university.name }}</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {% for rp in related_programs %}
+                        <a href="{{ rp.get_absolute_url }}" class="p-4 rounded-xl border border-slate-200 hover:border-blue-400 bg-slate-50 transition block">
+                            <span class="text-[10px] font-bold uppercase text-blue-700 bg-blue-100 px-2 py-0.5 rounded">{{ rp.get_degree_level_display }}</span>
+                            <h5 class="text-sm font-bold text-slate-900 mt-2 mb-1">{{ rp.title }}</h5>
+                            <span class="text-xs text-slate-500 font-semibold">{{ rp.formatted_tuition }} / Year</span>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Right 4 Cols: Quick Program Facts & Apply Card -->
+            <div class="lg:col-span-4 space-y-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+                    <h3 class="text-base font-bold text-slate-900 border-b border-slate-100 pb-3">Program Summary</h3>
+                    
+                    <div class="space-y-3 text-xs">
+                        <div class="flex justify-between py-1.5 border-b border-slate-50">
+                            <span class="text-slate-500 font-medium">Degree Level</span>
+                            <span class="font-bold text-slate-900">{{ program.get_degree_level_display }}</span>
+                        </div>
+                        <div class="flex justify-between py-1.5 border-b border-slate-50">
+                            <span class="text-slate-500 font-medium">Discipline</span>
+                            <span class="font-bold text-slate-900">{{ program.get_discipline_display }}</span>
+                        </div>
+                        <div class="flex justify-between py-1.5 border-b border-slate-50">
+                            <span class="text-slate-500 font-medium">Instruction Language</span>
+                            <span class="font-bold text-amber-700">{{ program.get_language_of_instruction_display }}</span>
+                        </div>
+                        <div class="flex justify-between py-1.5 border-b border-slate-50">
+                            <span class="text-slate-500 font-medium">Duration</span>
+                            <span class="font-bold text-slate-900">{{ program.duration_years }} Years</span>
+                        </div>
+                        <div class="flex justify-between py-1.5 border-b border-slate-50">
+                            <span class="text-slate-500 font-medium">Annual Tuition</span>
+                            <span class="font-extrabold text-blue-800 text-sm">{{ program.formatted_tuition }}</span>
+                        </div>
+                        <div class="flex justify-between py-1.5 border-b border-slate-50">
+                            <span class="text-slate-500 font-medium">Target Intake</span>
+                            <span class="font-bold text-slate-900">{{ program.get_intake_display }}</span>
+                        </div>
+                        <div class="flex justify-between py-1.5">
+                            <span class="text-slate-500 font-medium">Application Deadline</span>
+                            <span class="font-bold text-red-600">{{ program.application_deadline }}</span>
+                        </div>
+                    </div>
+
+                    <a href="{% url 'portal:apply' %}?university={{ university.id }}&program={{ program.id }}" class="block w-full py-3.5 text-center rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm shadow transition">
+                        Apply for this Program Now
+                    </a>
+                </div>
+
+                <!-- Counselor Support Card -->
+                <div class="bg-blue-900 text-white p-6 rounded-2xl shadow space-y-3 text-center">
+                    <i class="fa-solid fa-headset text-3xl text-amber-400"></i>
+                    <h4 class="font-bold text-sm">Need Help with this Program?</h4>
+                    <p class="text-xs text-blue-200">Our senior counselor will guide you through documents, SOP, and scholarship eligibility.</p>
+                    <a href="https://wa.me/{{ site_info.WHATSAPP }}?text=Hello%20Counselor,%20please%20assist%20me%20with%20{{ program.title|urlencode }}." target="_blank" class="inline-block w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl transition shadow">
+                        <i class="fa-brands fa-whatsapp text-sm mr-1.5"></i> Chat on WhatsApp
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

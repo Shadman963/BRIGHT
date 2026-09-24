@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Bright Edu Consultancy | Premier Higher Education in China &amp; Global Scholarships{% endblock %}</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="{% block meta_description %}Bright Edu Consultancy is your trusted partner for studying abroad in China with CSC Scholarships, top Chinese universities admission, JW202/Visa processing, and real-time application tracking.{% endblock %}">
+    <meta name="keywords" content="Study in China, CSC Scholarship, Chinese Government Scholarship, Bright Edu Consultancy, Universities in China, MBBS in China, Chinese University Admission, Study Abroad Consultancy">
+    <meta name="author" content="Bright Edu Consultancy">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Bright Edu Consultancy - Study in China &amp; Scholarships">
+    <meta property="og:description" content="Apply for CSC Scholarships, Bachelor, Master, PhD, and MBBS programs in China with complete visa and document tracking.">
+    <meta property="og:image" content="/static/images/logo.svg">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#0f2b5c',
+                            bluedark: '#091b3b',
+                            bluelight: '#1e40af',
+                            gold: '#d97706',
+                            goldlight: '#f59e0b',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/custom.css">
+
+    <!-- Schema.org EducationalOrganization JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "Bright Edu Consultancy",
+      "url": "https://brighteduconsultancy.com",
+      "logo": "/static/images/logo.svg",
+      "description": "Premier international educational consultancy specializing in Chinese universities, CSC scholarships, and visa processing.",
+      "telephone": "{{ site_info.PHONE }}",
+      "email": "{{ site_info.EMAIL }}",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "{{ site_info.MAIN_OFFICE }}",
+        "addressCountry": "Bangladesh"
+      }
+    }
+    </script>
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
+
+    <!-- Flash Messages Container -->
+    {% include 'includes/messages.html' %}
+
+    <!-- Global Topbar & Navigation -->
+    {% include 'includes/navbar.html' %}
+
+    <!-- Main Dynamic Content -->
+    <main class="flex-grow">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Floating WhatsApp & WeChat Widgets -->
+    {% include 'includes/floating_contact.html' %}
+
+    <!-- Global Footer -->
+    {% include 'includes/footer.html' %}
+
+    <!-- Main JavaScript -->
+    <script src="/static/js/main.js"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

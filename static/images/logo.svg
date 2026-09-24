@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 80" width="420" height="80" fill="none">
+  <!-- Modern Logo Mark -->
+  <g transform="translate(10, 8)">
+    <!-- Outer Shield / Hexagon -->
+    <rect x="0" y="0" width="64" height="64" rx="16" fill="url(#brandGrad)" />
+    <!-- Graduation Cap & Sunburst icon -->
+    <path d="M32 18 L16 27 L32 36 L48 27 Z" fill="#ffffff" />
+    <path d="M22 30.5 V42 C22 47.5 32 50.5 32 50.5 C32 50.5 42 47.5 42 42 V30.5" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M48 27 V39" stroke="#fcd34d" stroke-width="2.5" stroke-linecap="round" />
+    <circle cx="48" cy="41" r="2.5" fill="#fcd34d" />
+  </g>
+
+  <!-- Typography -->
+  <text x="88" y="38" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="26" font-weight="800" fill="#0f2b5c" letter-spacing="-0.5">
+    BRIGHT <tspan fill="#d97706">EDU</tspan>
+  </text>
+  <text x="89" y="58" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="11" font-weight="600" fill="#64748b" letter-spacing="2.5">
+    CONSULTANCY &amp; SCHOLARSHIPS
+  </text>
+
+  <defs>
+    <linearGradient id="brandGrad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0f2b5c" />
+      <stop offset="1" stop-color="#1e40af" />
+    </linearGradient>
+  </defs>
+</svg>

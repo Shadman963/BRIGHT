@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}Student Success Stories &amp; Testimonials | Bright Edu Consultancy{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<div class="bg-gradient-to-r from-slate-950 via-[#0f2b5c] to-slate-900 text-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3">
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/20 px-3.5 py-1 rounded-full border border-emerald-500/30">
+            Real Student Outcomes
+        </span>
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight font-serif-heading">
+            Student Success Stories
+        </h1>
+        <p class="text-slate-300 text-base max-w-2xl mx-auto">
+            Hear directly from students who secured Chinese Government Scholarships, admissions to top 100 global universities, and successfully arrived in China with Bright Edu.
+        </p>
+    </div>
+</div>
+
+<!-- Degree Filter Strip -->
+<div class="bg-white border-b border-slate-200 py-4 sticky top-20 z-30 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm font-semibold">
+        <a href="{% url 'core:testimonials' %}" class="px-4 py-2 rounded-lg transition {% if not selected_degree %}bg-blue-700 text-white shadow{% else %}text-slate-600 hover:bg-slate-100{% endif %}">
+            All Reviews
+        </a>
+        <a href="{% url 'core:testimonials' %}?degree=Bachelor" class="px-4 py-2 rounded-lg transition {% if selected_degree == 'Bachelor' %}bg-blue-700 text-white shadow{% else %}text-slate-600 hover:bg-slate-100{% endif %}">
+            Bachelor Degree
+        </a>
+        <a href="{% url 'core:testimonials' %}?degree=Master" class="px-4 py-2 rounded-lg transition {% if selected_degree == 'Master' %}bg-blue-700 text-white shadow{% else %}text-slate-600 hover:bg-slate-100{% endif %}">
+            Master Degree
+        </a>
+        <a href="{% url 'core:testimonials' %}?degree=PhD" class="px-4 py-2 rounded-lg transition {% if selected_degree == 'PhD' %}bg-blue-700 text-white shadow{% else %}text-slate-600 hover:bg-slate-100{% endif %}">
+            PhD Candidates
+        </a>
+        <a href="{% url 'core:testimonials' %}?degree=Language" class="px-4 py-2 rounded-lg transition {% if selected_degree == 'Language' %}bg-blue-700 text-white shadow{% else %}text-slate-600 hover:bg-slate-100{% endif %}">
+            Language Programs
+        </a>
+    </div>
+</div>
+
+<!-- Testimonials Grid -->
+<section class="py-16 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for t in testimonials %}
+            <div class="bg-white rounded-2xl p-7 border border-slate-200/80 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between">
+                <div>
+                    <!-- Top Info Header -->
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="px-2.5 py-1 bg-amber-100 text-amber-800 text-[11px] font-bold rounded-md">
+                            {{ t.get_degree_level_display }}
+                        </span>
+                        <div class="flex text-amber-400 text-xs">
+                            {% for i in "12345" %}
+                            <i class="fa-solid fa-star"></i>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <p class="text-slate-700 text-sm italic leading-relaxed mb-6">
+                        "{{ t.quote }}"
+                    </p>
+                </div>
+
+                <div class="pt-5 border-t border-slate-100">
+                    <div class="flex items-center space-x-3 mb-3">
+                        <div class="w-12 h-12 rounded-full bg-blue-900 text-white font-bold flex items-center justify-center text-sm shadow flex-shrink-0">
+                            {{ t.student_name|slice:":2"|upper }}
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm leading-tight">{{ t.student_name }}</h4>
+                            <p class="text-xs text-slate-500">{{ t.home_country }} • Intake {{ t.intake_year }}</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100 space-y-1">
+                        <div class="text-xs font-semibold text-blue-900 flex items-center">
+                            <i class="fa-solid fa-building-columns text-blue-600 mr-1.5"></i> {{ t.university_admitted }}
+                        </div>
+                        <div class="text-[11px] text-slate-600 flex items-center">
+                            <i class="fa-solid fa-book-open text-slate-400 mr-1.5"></i> {{ t.program_name }}
+                        </div>
+                        <div class="text-[11px] font-bold text-emerald-700 flex items-center">
+                            <i class="fa-solid fa-award text-emerald-600 mr-1.5"></i> {{ t.scholarship_received }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-3 text-center py-16 bg-white rounded-2xl border border-dashed border-slate-200">
+                <i class="fa-solid fa-comments text-4xl text-slate-300 mb-3"></i>
+                <p class="text-slate-500 font-medium">No testimonials found for this filter.</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Submit Application Banner -->
+        <div class="mt-16 text-center bg-gradient-to-r from-blue-900 to-indigo-900 text-white p-10 rounded-3xl shadow-xl">
+            <h3 class="text-2xl font-bold font-serif-heading mb-2">Be Our Next Success Story in China</h3>
+            <p class="text-blue-200 text-sm max-w-xl mx-auto mb-6">Apply now and let Bright Edu Consultancy guide your path to scholarship and admission.</p>
+            <a href="{% url 'portal:apply' %}" class="inline-flex items-center px-8 py-3.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm rounded-xl shadow-lg transition">
+                Start Online Application
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

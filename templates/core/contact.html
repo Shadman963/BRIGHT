@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us | Bright Edu Consultancy{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<div class="bg-gradient-to-r from-slate-950 via-[#0f2b5c] to-slate-900 text-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3">
+        <span class="text-xs font-bold uppercase tracking-wider text-amber-400 bg-amber-500/20 px-3.5 py-1 rounded-full border border-amber-500/30">
+            Get In Touch
+        </span>
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight font-serif-heading">
+            Connect With Our Counselors
+        </h1>
+        <p class="text-slate-300 text-base max-w-2xl mx-auto">
+            Visit our offices, message us on WhatsApp or WeChat, or send an online inquiry. Our senior counselors respond promptly.
+        </p>
+    </div>
+</div>
+
+<section class="py-16 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            
+            <!-- Left Column: Contact Form -->
+            <div class="lg:col-span-7 bg-white p-8 sm:p-10 rounded-2xl border border-slate-200/80 shadow-sm">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-slate-900 font-serif-heading">Send Us an Inquiry</h2>
+                    <p class="text-xs sm:text-sm text-slate-500 mt-1">Fill out the form below for a free eligibility evaluation and scholarship consultation.</p>
+                </div>
+
+                <form method="post" class="space-y-4">
+                    {% csrf_token %}
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Your Full Name *</label>
+                            {{ form.name }}
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Email Address *</label>
+                            {{ form.email }}
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Phone / WhatsApp *</label>
+                            {{ form.phone }}
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Target Degree</label>
+                            {{ form.desired_degree }}
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Subject *</label>
+                        {{ form.subject }}
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Your Message &amp; Academic Background *</label>
+                        {{ form.message }}
+                    </div>
+
+                    <button type="submit" class="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-blue-700 to-blue-800 hover:from-blue-800 hover:to-blue-900 text-white font-bold text-sm shadow-lg hover:shadow-xl transition transform active:scale-95">
+                        <i class="fa-solid fa-paper-plane mr-2"></i> Submit Inquiry to Counselor
+                    </button>
+                </form>
+            </div>
+
+            <!-- Right Column: Contact Details, WhatsApp & WeChat -->
+            <div class="lg:col-span-5 space-y-6">
+                <!-- Instant Chat Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- WhatsApp Card -->
+                    <a href="https://wa.me/{{ site_info.WHATSAPP }}?text=Hello%20Bright%20Edu%20Consultancy!%20I%20would%20like%20to%20inquire%20about%20China%20admission." target="_blank" class="p-5 rounded-2xl bg-[#25D366]/10 border border-[#25D366]/30 hover:bg-[#25D366]/20 transition flex flex-col justify-between group">
+                        <div>
+                            <div class="w-10 h-10 rounded-full bg-[#25D366] text-white flex items-center justify-center text-xl mb-3 shadow">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <h4 class="font-bold text-slate-900 text-sm">WhatsApp Chat</h4>
+                            <p class="text-xs text-slate-600 mt-1">Direct instant chat with our admissions team.</p>
+                        </div>
+                        <span class="mt-4 text-xs font-bold text-[#20ba5a] flex items-center group-hover:underline">
+                            Open Chat <i class="fa-solid fa-arrow-right ml-1.5 text-[10px]"></i>
+                        </span>
+                    </a>
+
+                    <!-- WeChat Card -->
+                    <div class="trigger-wechat-modal p-5 rounded-2xl bg-emerald-50 border border-emerald-200 hover:bg-emerald-100/70 transition flex flex-col justify-between cursor-pointer group">
+                        <div>
+                            <div class="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xl mb-3 shadow">
+                                <i class="fa-brands fa-weixin"></i>
+                            </div>
+                            <h4 class="font-bold text-slate-900 text-sm">WeChat Support</h4>
+                            <p class="text-xs text-slate-600 mt-1">ID: <span class="font-semibold text-slate-800">{{ site_info.WECHAT_ID }}</span></p>
+                        </div>
+                        <span class="mt-4 text-xs font-bold text-emerald-700 flex items-center group-hover:underline">
+                            Scan QR Code <i class="fa-solid fa-qrcode ml-1.5"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Office Locations -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+                    <h3 class="font-bold text-slate-900 text-base border-b border-slate-100 pb-3">Office Addresses</h3>
+                    
+                    <div class="flex items-start space-x-3">
+                        <div class="p-2 bg-blue-50 text-blue-700 rounded-lg mt-0.5">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div>
+                            <h5 class="text-xs font-bold text-slate-900 uppercase">Headquarters</h5>
+                            <p class="text-xs text-slate-600 mt-0.5">{{ site_info.MAIN_OFFICE }}</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-3">
+                        <div class="p-2 bg-amber-50 text-amber-700 rounded-lg mt-0.5">
+                            <i class="fa-solid fa-building"></i>
+                        </div>
+                        <div>
+                            <h5 class="text-xs font-bold text-slate-900 uppercase">China Branch Office</h5>
+                            <p class="text-xs text-slate-600 mt-0.5">{{ site_info.CHINA_OFFICE }}</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-3">
+                        <div class="p-2 bg-emerald-50 text-emerald-700 rounded-lg mt-0.5">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                        <div>
+                            <h5 class="text-xs font-bold text-slate-900 uppercase">Office Hours</h5>
+                            <p class="text-xs text-slate-600 mt-0.5">{{ site_info.OFFICE_HOURS }}</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-3">
+                        <div class="p-2 bg-red-50 text-red-700 rounded-lg mt-0.5">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h5 class="text-xs font-bold text-slate-900 uppercase">Direct Email</h5>
+                            <p class="text-xs text-slate-600 mt-0.5">{{ site_info.ADMISSIONS_EMAIL }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Google Maps Frame Placeholder -->
+                <div class="rounded-2xl overflow-hidden border border-slate-200 shadow-sm h-48 bg-slate-200 relative flex items-center justify-center text-center p-4">
+                    <div class="space-y-1">
+                        <i class="fa-solid fa-map-location-dot text-3xl text-slate-400"></i>
+                        <p class="text-xs font-bold text-slate-700">Central Office Map</p>
+                        <p class="text-[11px] text-slate-500">Panthapath, Dhaka-1205</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

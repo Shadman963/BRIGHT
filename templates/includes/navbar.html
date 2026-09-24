@@ -1,0 +1,132 @@
+<!-- Top Notification Bar -->
+<div class="bg-slate-900 text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center space-x-4">
+            <span class="flex items-center"><i class="fa-solid fa-phone text-amber-500 mr-1.5"></i> {{ site_info.PHONE }}</span>
+            <span class="hidden sm:flex items-center"><i class="fa-brands fa-whatsapp text-emerald-400 mr-1.5"></i> {{ site_info.WHATSAPP_DISPLAY }}</span>
+            <span class="hidden md:flex items-center"><i class="fa-regular fa-clock text-blue-400 mr-1.5"></i> {{ site_info.OFFICE_HOURS }}</span>
+        </div>
+        <div class="flex items-center space-x-3 text-xs">
+            <span class="text-amber-400 font-semibold flex items-center">
+                <i class="fa-solid fa-award mr-1"></i> China CSC 2026/2027 Intakes Open
+            </span>
+            <span class="text-slate-600">|</span>
+            <a href="https://facebook.com" target="_blank" class="hover:text-white"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="trigger-wechat-modal hover:text-white" title="WeChat: {{ site_info.WECHAT_ID }}"><i class="fa-brands fa-weixin"></i></a>
+        </div>
+    </div>
+</div>
+
+<!-- Main Navigation -->
+<nav class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+            <!-- Brand Logo -->
+            <a href="{% url 'core:home' %}" class="flex items-center group">
+                <img src="/static/images/logo.svg" alt="Bright Edu Consultancy Logo" class="h-12 w-auto transition-transform group-hover:scale-[1.02]">
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <div class="hidden lg:flex items-center space-x-1 font-medium text-sm text-slate-700">
+                <a href="{% url 'core:home' %}" class="px-3 py-2 rounded-lg hover:text-blue-700 hover:bg-slate-50 transition {% if request.resolver_match.view_name == 'core:home' %}text-blue-700 font-semibold bg-blue-50/60{% endif %}">
+                    Home
+                </a>
+                <a href="{% url 'core:about' %}" class="px-3 py-2 rounded-lg hover:text-blue-700 hover:bg-slate-50 transition {% if request.resolver_match.view_name == 'core:about' %}text-blue-700 font-semibold bg-blue-50/60{% endif %}">
+                    About Us
+                </a>
+                <a href="{% url 'core:services' %}" class="px-3 py-2 rounded-lg hover:text-blue-700 hover:bg-slate-50 transition {% if request.resolver_match.view_name == 'core:services' %}text-blue-700 font-semibold bg-blue-50/60{% endif %}">
+                    Services
+                </a>
+                <a href="{% url 'core:study_in_china' %}" class="px-3 py-2 rounded-lg hover:text-amber-700 hover:bg-amber-50 transition relative group {% if request.resolver_match.view_name == 'core:study_in_china' %}text-amber-800 font-semibold bg-amber-100/50{% endif %}">
+                    <span class="flex items-center">
+                        <i class="fa-solid fa-graduation-cap text-amber-600 mr-1.5"></i>
+                        Study in China
+                    </span>
+                    <span class="absolute -top-1 -right-1 flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+                    </span>
+                </a>
+                <a href="{% url 'universities:university_list' %}" class="px-3 py-2 rounded-lg hover:text-blue-700 hover:bg-slate-50 transition {% if 'universities' in request.resolver_match.namespace %}text-blue-700 font-semibold bg-blue-50/60{% endif %}">
+                    Universities &amp; Programs
+                </a>
+                <a href="{% url 'core:testimonials' %}" class="px-3 py-2 rounded-lg hover:text-blue-700 hover:bg-slate-50 transition {% if request.resolver_match.view_name == 'core:testimonials' %}text-blue-700 font-semibold bg-blue-50/60{% endif %}">
+                    Success Stories
+                </a>
+                <a href="{% url 'core:contact' %}" class="px-3 py-2 rounded-lg hover:text-blue-700 hover:bg-slate-50 transition {% if request.resolver_match.view_name == 'core:contact' %}text-blue-700 font-semibold bg-blue-50/60{% endif %}">
+                    Contact Us
+                </a>
+            </div>
+
+            <!-- Desktop Action / Portal Buttons -->
+            <div class="hidden lg:flex items-center space-x-3">
+                {% if user.is_authenticated %}
+                    {% if user.is_staff %}
+                    <a href="{% url 'portal:staff_dashboard' %}" class="inline-flex items-center px-4 py-2 rounded-lg text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 transition shadow-sm">
+                        <i class="fa-solid fa-gauge-high mr-2 text-amber-400"></i> Counselor Panel
+                    </a>
+                    {% else %}
+                    <a href="{% url 'portal:dashboard' %}" class="inline-flex items-center px-4 py-2 rounded-lg text-sm font-semibold bg-blue-700 text-white hover:bg-blue-800 transition shadow-sm">
+                        <i class="fa-solid fa-user-graduate mr-2 text-amber-300"></i> Student Portal
+                        {% if user_application %}
+                        <span class="ml-2 px-2 py-0.5 text-xs bg-blue-900 text-blue-100 rounded-full font-bold">
+                            {{ user_application.status }}
+                        </span>
+                        {% endif %}
+                    </a>
+                    {% endif %}
+                    <a href="{% url 'portal:logout' %}" class="p-2 text-slate-500 hover:text-red-600 rounded-lg hover:bg-slate-100 transition" title="Log Out">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    </a>
+                {% else %}
+                    <a href="{% url 'portal:login' %}" class="text-sm font-semibold text-slate-700 hover:text-blue-700 px-3 py-2 rounded-lg hover:bg-slate-50 transition">
+                        <i class="fa-regular fa-circle-user mr-1 text-slate-500"></i> Student Login
+                    </a>
+                    <a href="{% url 'portal:apply' %}" class="inline-flex items-center px-5 py-2.5 rounded-xl text-sm font-bold bg-gradient-to-r from-amber-600 to-amber-500 text-white hover:from-amber-700 hover:to-amber-600 transition shadow-md hover:shadow-lg transform active:scale-95">
+                        Apply Now <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                {% endif %}
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="flex lg:hidden items-center space-x-2">
+                {% if user.is_authenticated %}
+                <a href="{% if user.is_staff %}{% url 'portal:staff_dashboard' %}{% else %}{% url 'portal:dashboard' %}{% endif %}" class="p-2 text-blue-700 bg-blue-50 rounded-lg text-sm font-bold">
+                    <i class="fa-solid fa-user-graduate"></i>
+                </a>
+                {% endif %}
+                <button id="mobile-menu-btn" type="button" class="p-2.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-2 shadow-xl">
+        <a href="{% url 'core:home' %}" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-blue-700">Home</a>
+        <a href="{% url 'core:about' %}" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-blue-700">About Us</a>
+        <a href="{% url 'core:services' %}" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-blue-700">Services</a>
+        <a href="{% url 'core:study_in_china' %}" class="block px-3 py-2 rounded-lg text-base font-medium text-amber-800 bg-amber-50/70 hover:bg-amber-100">
+            <i class="fa-solid fa-graduation-cap text-amber-600 mr-2"></i> Study in China &amp; CSC
+        </a>
+        <a href="{% url 'universities:university_list' %}" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-blue-700">Universities &amp; Programs</a>
+        <a href="{% url 'core:testimonials' %}" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-blue-700">Success Stories</a>
+        <a href="{% url 'core:contact' %}" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-blue-700">Contact Us</a>
+
+        <div class="pt-4 border-t border-slate-200 space-y-2">
+            {% if user.is_authenticated %}
+                {% if user.is_staff %}
+                <a href="{% url 'portal:staff_dashboard' %}" class="block w-full text-center px-4 py-2.5 rounded-lg bg-slate-900 text-white font-semibold">Counselor Management Panel</a>
+                {% else %}
+                <a href="{% url 'portal:dashboard' %}" class="block w-full text-center px-4 py-2.5 rounded-lg bg-blue-700 text-white font-semibold">My Student Dashboard</a>
+                <a href="{% url 'portal:documents' %}" class="block w-full text-center px-4 py-2 rounded-lg border border-slate-300 text-slate-700 font-medium">My Documents</a>
+                {% endif %}
+                <a href="{% url 'portal:logout' %}" class="block w-full text-center px-4 py-2 rounded-lg text-red-600 font-medium hover:bg-red-50">Log Out</a>
+            {% else %}
+                <a href="{% url 'portal:login' %}" class="block w-full text-center px-4 py-2.5 rounded-lg border border-slate-300 font-semibold text-slate-700 hover:bg-slate-50">Student Login</a>
+                <a href="{% url 'portal:apply' %}" class="block w-full text-center px-4 py-2.5 rounded-lg bg-amber-600 font-bold text-white shadow-md">Apply Now</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>

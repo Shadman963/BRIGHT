@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+
+{% block title %}Counselor Admissions Management Panel | Bright Edu Consultancy{% endblock %}
+
+{% block content %}
+<section class="py-10 bg-slate-100 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        
+        <!-- Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-amber-600 bg-amber-100 px-3 py-1 rounded-full">
+                    Consultancy Staff &amp; Counselor Command Center
+                </span>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2 font-serif-heading">
+                    Student Applications &amp; Document Management
+                </h1>
+                <p class="text-xs sm:text-sm text-slate-500">
+                    Review student dossiers, update 7-stage statuses, and request document corrections.
+                </p>
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <a href="{% url 'admin:index' %}" target="_blank" class="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow transition flex items-center">
+                    <i class="fa-solid fa-screwdriver-wrench mr-2 text-amber-400"></i> Django Admin
+                </a>
+            </div>
+        </div>
+
+        <!-- METRICS COUNTER CARDS -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 text-center">
+            <a href="{% url 'portal:staff_dashboard' %}" class="p-3 rounded-xl bg-white border border-slate-200 shadow-sm hover:border-blue-400 transition">
+                <div class="text-2xl font-black text-slate-900">{{ total_apps }}</div>
+                <div class="text-[10px] font-bold text-slate-500 uppercase">Total Files</div>
+            </a>
+            <a href="{% url 'portal:staff_dashboard' %}?status=Submitted" class="p-3 rounded-xl bg-white border border-slate-200 shadow-sm hover:border-blue-400 transition">
+                <div class="text-2xl font-black text-blue-700">{{ submitted_count }}</div>
+                <div class="text-[10px] font-bold text-slate-500 uppercase">1. Submitted</div>
+            </a>
+            <a href="{% url 'portal:staff_dashboard' %}?status=Document+Checking" class="p-3 rounded-xl bg-white border border-slate-200 shadow-sm hover:border-blue-400 transition">
+                <div class="text-2xl font-black text-amber-600">{{ doc_checking_count }}</div>
+                <div class="text-[10px] font-bold text-slate-500 uppercase">2. Doc Check</div>
+            </a>
+            <a href="{% url 'portal:staff_dashboard' %}?status=Applied" class="p-3 rounded-xl bg-white border border-slate-200 shadow-sm hover:border-blue-400 transition">
+                <div class="text-2xl font-black text-blue-800">{{ applied_count }}</div>
+                <div class="text-[10px] font-bold text-slate-500 uppercase">3. Applied</div>
+            </a>
+            <a href="{% url 'portal:staff_dashboard' %}?status=Under+Review" class="p-3 rounded-xl bg-white border border-slate-200 shadow-sm hover:border-blue-400 transition">
+                <div class="text-2xl font-black text-purple-700">{{ under_review_count }}</div>
+                <div class="text-[10px] font-bold text-slate-500 uppercase">4. In Review</div>
+            </a>
+            <a href="{% url 'portal:staff_dashboard' %}?status=Admission" class="p-3 rounded-xl bg-white border border-slate-200 shadow-sm hover:border-blue-400 transition">
+                <div class="text-2xl font-black text-emerald-600">{{ admission_count }}</div>
+                <div class="text-[10px] font-bold text-slate-500 uppercase">5. Admission</div>
+            </a>
+            <a href="{% url 'portal:staff_dashboard' %}?status=Visa" class="p-3 rounded-xl bg-white border border-slate-200 shadow-sm hover:border-blue-400 transition">
+                <div class="text-2xl font-black text-amber-700">{{ visa_count }}</div>
+                <div class="text-[10px] font-bold text-slate-500 uppercase">6. Visa</div>
+            </a>
+            <a href="{% url 'portal:staff_dashboard' %}?status=Completed" class="p-3 rounded-xl bg-white border border-slate-200 shadow-sm hover:border-blue-400 transition">
+                <div class="text-2xl font-black text-emerald-800">{{ completed_count }}</div>
+                <div class="text-[10px] font-bold text-slate-500 uppercase">7. Arrived</div>
+            </a>
+        </div>
+
+        <!-- SEARCH AND FILTER BAR -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+            <form method="get" class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
+                <div class="sm:col-span-6 relative">
+                    <i class="fa-solid fa-search absolute left-3.5 top-3.5 text-slate-400 text-xs"></i>
+                    <input type="text" name="q" value="{{ selected_q }}" placeholder="Search by student name, Application ID (e.g. BEC-2026-), email..." class="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600 outline-none">
+                </div>
+
+                <div class="sm:col-span-4">
+                    <select name="status" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs bg-white focus:ring-2 focus:ring-blue-600 outline-none">
+                        <option value="">All Application Stages</option>
+                        {% for st in status_choices %}
+                        <option value="{{ st }}" {% if selected_status == st %}selected{% endif %}>{{ st }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="sm:col-span-2 flex items-center space-x-2">
+                    <button type="submit" class="w-full py-2.5 bg-blue-700 hover:bg-blue-800 text-white font-bold text-xs rounded-xl shadow transition">
+                        Filter
+                    </button>
+                    {% if selected_q or selected_status %}
+                    <a href="{% url 'portal:staff_dashboard' %}" class="p-2.5 rounded-xl border border-slate-300 text-slate-500 hover:bg-slate-50 text-xs" title="Reset">
+                        <i class="fa-solid fa-rotate-left"></i>
+                    </a>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+
+        <!-- STUDENT APPLICATIONS TABLE -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+                <h3 class="font-bold text-slate-900 text-sm">
+                    Student Applications Record ({{ applications.count }})
+                </h3>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                    <thead class="bg-slate-50 border-b border-slate-200 text-slate-500 font-bold uppercase tracking-wider">
+                        <tr>
+                            <th class="py-3 px-4">Application ID</th>
+                            <th class="py-3 px-4">Student Name &amp; Contact</th>
+                            <th class="py-3 px-4">Target University &amp; Program</th>
+                            <th class="py-3 px-4">Degree &amp; Intake</th>
+                            <th class="py-3 px-4">Current Status</th>
+                            <th class="py-3 px-4">Docs Status</th>
+                            <th class="py-3 px-4">Submission Date</th>
+                            <th class="py-3 px-4 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        {% for a in applications %}
+                        <tr class="hover:bg-slate-50/80 transition">
+                            <td class="py-3 px-4">
+                                <span class="font-mono font-bold text-blue-900 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+                                    {{ a.application_id }}
+                                </span>
+                            </td>
+                            <td class="py-3 px-4">
+                                <div class="font-bold text-slate-900">{{ a.student.get_full_name|default:a.student.username }}</div>
+                                <div class="text-[11px] text-slate-500">{{ a.student.email }}</div>
+                                <div class="text-[11px] text-emerald-700 font-medium">
+                                    <i class="fa-brands fa-whatsapp text-emerald-500 mr-1"></i> {{ a.student.student_profile.phone|default:"No phone" }}
+                                </div>
+                            </td>
+                            <td class="py-3 px-4">
+                                <div class="font-bold text-slate-800">{{ a.display_university }}</div>
+                                <div class="text-[11px] text-slate-500">{{ a.display_program }}</div>
+                            </td>
+                            <td class="py-3 px-4">
+                                <div class="font-semibold text-slate-700">{{ a.get_target_degree_display }}</div>
+                                <div class="text-[11px] text-slate-400">{{ a.target_intake }}</div>
+                            </td>
+                            <td class="py-3 px-4">
+                                <span class="px-2.5 py-1 rounded-md text-[10px] font-bold whitespace-nowrap
+                                    {% if a.status == 'Completed' %}bg-emerald-100 text-emerald-800
+                                    {% elif a.status == 'Admission' %}bg-emerald-50 text-emerald-700 border border-emerald-300
+                                    {% elif a.status == 'Visa' %}bg-amber-100 text-amber-800
+                                    {% elif a.status == 'Document Checking' %}bg-amber-50 text-amber-800 border border-amber-200
+                                    {% else %}bg-blue-100 text-blue-800{% endif %}">
+                                    {{ a.status }}
+                                </span>
+                            </td>
+                            <td class="py-3 px-4">
+                                {% if a.has_missing_documents %}
+                                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-red-100 text-red-800 flex items-center w-fit">
+                                    <i class="fa-solid fa-circle-exclamation mr-1"></i> Action Req.
+                                </span>
+                                {% else %}
+                                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-600">
+                                    {{ a.documents.count }} files
+                                </span>
+                                {% endif %}
+                            </td>
+                            <td class="py-3 px-4 text-slate-500 text-[11px]">
+                                {{ a.created_at|date:"M d, Y" }}
+                            </td>
+                            <td class="py-3 px-4 text-right">
+                                <a href="{% url 'portal:staff_app_detail' a.application_id %}" class="px-3 py-1.5 rounded-lg bg-blue-700 hover:bg-blue-800 text-white font-bold text-xs transition shadow-sm inline-flex items-center">
+                                    Manage <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="8" class="py-12 text-center text-slate-400 text-xs">
+                                No student applications match your filter criteria.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

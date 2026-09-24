@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+
+{% block title %}Application Dossier: {{ app.application_id }} | Bright Edu Consultancy{% endblock %}
+
+{% block content %}
+<section class="py-12 bg-slate-50 min-h-screen">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        
+        <!-- Dossier Top Bar (No-print) -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 no-print">
+            <div>
+                <a href="{% url 'portal:dashboard' %}" class="inline-flex items-center text-xs font-semibold text-blue-700 hover:underline mb-2">
+                    <i class="fa-solid fa-arrow-left mr-1.5"></i> Back to Dashboard
+                </a>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 font-serif-heading">
+                    Official Student Application Dossier
+                </h1>
+                <p class="text-xs sm:text-sm text-slate-500 mt-0.5">
+                    Unique Application ID: <span class="font-bold text-blue-900 font-mono">{{ app.application_id }}</span>
+                </p>
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <button type="button" onclick="window.print()" class="px-4 py-2 rounded-xl bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold text-xs shadow-sm transition flex items-center">
+                    <i class="fa-solid fa-print mr-2"></i> Print / Save as PDF
+                </button>
+                <a href="{% url 'portal:documents_app' app.application_id %}" class="px-4 py-2 rounded-xl bg-blue-700 hover:bg-blue-800 text-white font-bold text-xs shadow transition flex items-center">
+                    <i class="fa-solid fa-folder mr-2"></i> Document Center
+                </a>
+            </div>
+        </div>
+
+        <!-- PRINTABLE DOSSIER CARD -->
+        <div class="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200/80 shadow-lg space-y-8 print-card">
+            
+            <!-- Dossier Header -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-200 pb-6 gap-4">
+                <div class="flex items-center space-x-4">
+                    <img src="/static/images/logo.svg" alt="Bright Edu Consultancy" class="h-12 w-auto">
+                    <div>
+                        <div class="text-xs uppercase font-extrabold text-slate-400 tracking-wider">Admissions Directorate</div>
+                        <div class="text-xs text-slate-500">Bright Edu Consultancy International</div>
+                    </div>
+                </div>
+
+                <div class="text-left sm:text-right">
+                    <div class="font-mono font-black text-lg text-blue-900">{{ app.application_id }}</div>
+                    <div class="text-xs text-slate-500">Lodged: {{ app.created_at|date:"F d, Y" }}</div>
+                    <div class="mt-1">
+                        <span class="px-3 py-1 bg-blue-100 text-blue-900 text-xs font-bold rounded-full">
+                            Current Status: {{ app.status }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Profile Summary -->
+            <div class="space-y-3">
+                <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100 pb-1.5">
+                    1. Applicant Information
+                </h3>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+                    <div>
+                        <span class="text-slate-400 block font-medium">Applicant Name</span>
+                        <span class="font-bold text-slate-900 text-sm">{{ app.student.get_full_name|default:app.student.username }}</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block font-medium">Email Address</span>
+                        <span class="font-bold text-slate-900">{{ app.student.email }}</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block font-medium">Phone / WhatsApp</span>
+                        <span class="font-bold text-slate-900">{{ app.student.student_profile.phone|default:"N/A" }}</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block font-medium">Nationality</span>
+                        <span class="font-bold text-slate-900">{{ app.student.student_profile.nationality|default:"Bangladesh" }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Program & University Preference -->
+            <div class="space-y-3">
+                <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100 pb-1.5">
+                    2. Study Preference in China
+                </h3>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+                    <div>
+                        <span class="text-slate-400 block font-medium">Target University</span>
+                        <span class="font-bold text-blue-900 text-sm">{{ app.display_university }}</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block font-medium">Desired Program / Major</span>
+                        <span class="font-bold text-slate-900 text-sm">{{ app.display_program }}</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block font-medium">Degree Level</span>
+                        <span class="font-bold text-slate-900">{{ app.get_target_degree_display }}</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block font-medium">Intake Term</span>
+                        <span class="font-bold text-slate-900">{{ app.target_intake }}</span>
+                    </div>
+                </div>
+                <div class="pt-2 text-xs">
+                    <span class="text-slate-400 font-medium">Scholarship Preference: </span>
+                    <span class="font-bold text-emerald-800">{{ app.get_scholarship_preference_display }}</span>
+                </div>
+            </div>
+
+            <!-- Academic Background -->
+            <div class="space-y-3">
+                <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100 pb-1.5">
+                    3. Previous Academic Records
+                </h3>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+                    <div>
+                        <span class="text-slate-400 block font-medium">Highest Qualification</span>
+                        <span class="font-bold text-slate-900">{{ app.highest_qualification }}</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block font-medium">Institute Name</span>
+                        <span class="font-bold text-slate-900">{{ app.institute_name }}</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block font-medium">Graduation Year</span>
+                        <span class="font-bold text-slate-900">{{ app.graduation_year }}</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block font-medium">CGPA / Percentage</span>
+                        <span class="font-bold text-slate-900">{{ app.cgpa_or_percentage }}</span>
+                    </div>
+                </div>
+                <div class="pt-1 text-xs">
+                    <span class="text-slate-400 font-medium">English Proficiency: </span>
+                    <span class="font-bold text-slate-800">{{ app.english_proficiency }}</span>
+                </div>
+            </div>
+
+            <!-- Documents Table -->
+            <div class="space-y-3">
+                <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100 pb-1.5">
+                    4. Document File Inventory ({{ documents.count }} Attached)
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-xs text-left">
+                        <thead class="bg-slate-50 border-b border-slate-200 text-slate-500 font-bold uppercase">
+                            <tr>
+                                <th class="py-2.5 px-3">#</th>
+                                <th class="py-2.5 px-3">Document Title</th>
+                                <th class="py-2.5 px-3">Category</th>
+                                <th class="py-2.5 px-3">Verification Status</th>
+                                <th class="py-2.5 px-3 no-print">File Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            {% for doc in documents %}
+                            <tr>
+                                <td class="py-2.5 px-3 text-slate-400">{{ forloop.counter }}</td>
+                                <td class="py-2.5 px-3 font-bold text-slate-900">{{ doc.title }}</td>
+                                <td class="py-2.5 px-3 text-slate-600">{{ doc.get_doc_type_display }}</td>
+                                <td class="py-2.5 px-3">
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold
+                                        {% if doc.status == 'verified' %}bg-emerald-100 text-emerald-800
+                                        {% elif doc.status == 'action_required' %}bg-red-100 text-red-800
+                                        {% else %}bg-amber-100 text-amber-800{% endif %}">
+                                        {{ doc.get_status_display }}
+                                    </span>
+                                </td>
+                                <td class="py-2.5 px-3 no-print">
+                                    <a href="{{ doc.file.url }}" target="_blank" class="text-blue-700 hover:underline font-semibold">
+                                        Open {{ doc.file_extension }}
+                                    </a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="py-4 text-center text-slate-400">No documents listed.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Official Certification Note -->
+            <div class="pt-6 border-t border-slate-200 text-[11px] text-slate-400 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <span>Bright Edu Consultancy • Student Application &amp; Document Tracking System</span>
+                <span>Verification Hash: {{ app.application_id }}-{{ app.id }}-VERIFIED</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

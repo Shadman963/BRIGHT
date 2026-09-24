@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ university.name }} | Bright Edu Consultancy{% endblock %}
+
+{% block content %}
+<!-- University Hero Banner -->
+<section class="relative bg-slate-900 text-white min-h-[380px] flex items-end pb-12 overflow-hidden">
+    <img src="{{ university.display_cover }}" alt="{{ university.name }}" class="absolute inset-0 w-full h-full object-cover opacity-35 filter brightness-75">
+    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full pt-16">
+        <div class="flex flex-wrap items-center gap-2 mb-3">
+            <span class="px-3 py-1 bg-blue-900/80 text-blue-200 text-xs font-semibold rounded-md border border-blue-700/50">
+                <i class="fa-solid fa-location-dot mr-1"></i> {{ university.city }}, {{ university.province }}, {{ university.country }}
+            </span>
+            {% if university.ranking_national %}
+            <span class="px-3 py-1 bg-amber-500 text-slate-950 text-xs font-bold rounded-md">
+                Rank #{{ university.ranking_national }} in China
+            </span>
+            {% endif %}
+            {% if university.ranking_world %}
+            <span class="px-3 py-1 bg-slate-800 text-slate-200 text-xs font-semibold rounded-md">
+                QS World #{{ university.ranking_world }}
+            </span>
+            {% endif %}
+            {% if university.has_csc_scholarship %}
+            <span class="px-3 py-1 bg-red-600 text-white text-xs font-bold rounded-md">
+                CSC Type B Eligible
+            </span>
+            {% endif %}
+        </div>
+
+        <div class="text-amber-400 font-semibold text-sm mb-1">{{ university.chinese_name }}</div>
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight font-serif-heading drop-shadow-md">
+            {{ university.name }}
+        </h1>
+
+        <div class="mt-6 flex flex-wrap gap-4">
+            <a href="{% url 'portal:apply' %}?university={{ university.id }}" class="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm shadow-xl transition flex items-center">
+                <i class="fa-solid fa-paper-plane mr-2"></i> Apply to this University
+            </a>
+            <a href="https://wa.me/{{ site_info.WHATSAPP }}?text=Hello%20Bright%20Edu,%20I%20am%20interested%20in%20applying%20to%20{{ university.name|urlencode }}." target="_blank" class="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-sm border border-white/20 transition flex items-center">
+                <i class="fa-brands fa-whatsapp text-emerald-400 mr-2 text-base"></i> Ask Counselor via WhatsApp
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Content & Programs -->
+<section class="py-16 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+            
+            <!-- Left 8 Cols: Overview, Programs, Campus -->
+            <div class="lg:col-span-8 space-y-10">
+                <!-- Overview Card -->
+                <div class="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+                    <h2 class="text-2xl font-bold text-slate-900 font-serif-heading">About the University</h2>
+                    <p class="text-slate-600 text-sm sm:text-base leading-relaxed whitespace-pre-line">
+                        {{ university.description }}
+                    </p>
+
+                    {% if university.campus_highlights %}
+                    <div class="pt-4 border-t border-slate-100">
+                        <h4 class="font-bold text-slate-900 text-sm mb-2">Campus Facilities &amp; Student Life</h4>
+                        <p class="text-slate-600 text-sm leading-relaxed whitespace-pre-line">
+                            {{ university.campus_highlights }}
+                        </p>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Academic Programs Section -->
+                <div class="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm space-y-6">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                        <div>
+                            <h2 class="text-2xl font-bold text-slate-900 font-serif-heading">Available Programs</h2>
+                            <p class="text-xs text-slate-500 mt-0.5">Explore degrees taught in English and Chinese</p>
+                        </div>
+                        <span class="text-xs font-bold text-blue-700 bg-blue-50 px-3 py-1.5 rounded-full">
+                            {{ programs.count }} Offered
+                        </span>
+                    </div>
+
+                    <!-- Programs List -->
+                    <div class="space-y-4">
+                        {% for prog in programs %}
+                        <div class="p-5 rounded-xl border border-slate-200 hover:border-blue-300 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-50/60">
+                            <div>
+                                <div class="flex flex-wrap items-center gap-2 mb-1.5">
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-800">
+                                        {{ prog.get_degree_level_display }}
+                                    </span>
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800">
+                                        {{ prog.get_language_of_instruction_display }}
+                                    </span>
+                                    <span class="text-xs text-slate-500 font-medium">
+                                        <i class="fa-regular fa-clock mr-1 text-slate-400"></i> {{ prog.duration_years }} Years
+                                    </span>
+                                </div>
+                                <h4 class="text-base font-bold text-slate-900">
+                                    <a href="{{ prog.get_absolute_url }}" class="hover:text-blue-700 transition">{{ prog.title }}</a>
+                                </h4>
+                                <div class="text-xs text-slate-500 mt-1">
+                                    Annual Tuition: <span class="font-bold text-slate-800">{{ prog.formatted_tuition }}</span>
+                                    • Intake: <span class="font-semibold text-slate-700">{{ prog.get_intake_display }}</span>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center space-x-2 flex-shrink-0">
+                                <a href="{{ prog.get_absolute_url }}" class="px-3.5 py-2 rounded-lg border border-slate-300 hover:bg-white text-xs font-bold text-slate-700 transition">
+                                    Program Details
+                                </a>
+                                <a href="{% url 'portal:apply' %}?university={{ university.id }}&program={{ prog.id }}" class="px-4 py-2 rounded-lg bg-blue-700 hover:bg-blue-800 text-white text-xs font-bold shadow transition">
+                                    Apply
+                                </a>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <p class="text-slate-400 text-sm italic">No programs listed yet. Please contact our counseling desk.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right 4 Cols: Quick University Info & Apply Card -->
+            <div class="lg:col-span-4 space-y-6">
+                <!-- Fast Facts Card -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+                    <h3 class="text-base font-bold text-slate-900 border-b border-slate-100 pb-3">University Fast Facts</h3>
+                    
+                    <div class="space-y-3 text-xs">
+                        <div class="flex justify-between py-1.5 border-b border-slate-50">
+                            <span class="text-slate-500 font-medium">City &amp; Province</span>
+                            <span class="font-bold text-slate-900">{{ university.city }}, {{ university.province }}</span>
+                        </div>
+                        <div class="flex justify-between py-1.5 border-b border-slate-50">
+                            <span class="text-slate-500 font-medium">Country</span>
+                            <span class="font-bold text-slate-900">{{ university.country }}</span>
+                        </div>
+                        {% if university.ranking_national %}
+                        <div class="flex justify-between py-1.5 border-b border-slate-50">
+                            <span class="text-slate-500 font-medium">National Rank</span>
+                            <span class="font-bold text-blue-700">#{{ university.ranking_national }}</span>
+                        </div>
+                        {% endif %}
+                        <div class="flex justify-between py-1.5 border-b border-slate-50">
+                            <span class="text-slate-500 font-medium">CSC Scholarship</span>
+                            <span class="font-bold {% if university.has_csc_scholarship %}text-emerald-600{% else %}text-slate-400{% endif %}">
+                                {% if university.has_csc_scholarship %}Eligible (Type B){% else %}N/A{% endif %}
+                            </span>
+                        </div>
+                        <div class="flex justify-between py-1.5 border-b border-slate-50">
+                            <span class="text-slate-500 font-medium">Provincial Grants</span>
+                            <span class="font-bold {% if university.has_provincial_scholarship %}text-emerald-600{% else %}text-slate-400{% endif %}">
+                                {% if university.has_provincial_scholarship %}Available{% else %}N/A{% endif %}
+                            </span>
+                        </div>
+                        {% if university.website %}
+                        <div class="flex justify-between py-1.5">
+                            <span class="text-slate-500 font-medium">Official Website</span>
+                            <a href="{{ university.website }}" target="_blank" rel="noopener" class="font-bold text-blue-600 hover:underline">
+                                Visit Site <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <a href="{% url 'portal:apply' %}?university={{ university.id }}" class="block w-full py-3.5 text-center rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm shadow transition">
+                        Start Application Dossier
+                    </a>
+                </div>
+
+                <!-- WeChat & WhatsApp Counselor Box -->
+                <div class="bg-gradient-to-br from-blue-900 to-slate-900 text-white p-6 rounded-2xl shadow-md space-y-4">
+                    <h4 class="font-bold text-sm text-amber-400 uppercase tracking-wider">Direct Admission Desk</h4>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Need advice regarding admission criteria, minimum GPA, or scholarship quota for {{ university.name }}?
+                    </p>
+                    <div class="space-y-2 pt-2">
+                        <a href="https://wa.me/{{ site_info.WHATSAPP }}?text=Hello%20Counselor,%20I%20want%20to%20apply%20to%20{{ university.name|urlencode }}." target="_blank" class="w-full py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center transition">
+                            <i class="fa-brands fa-whatsapp text-sm mr-2"></i> WhatsApp Consultation
+                        </a>
+                        <button type="button" class="trigger-wechat-modal w-full py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs flex items-center justify-center border border-white/20 transition">
+                            <i class="fa-brands fa-weixin text-sm mr-2 text-emerald-400"></i> WeChat Admission QR
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

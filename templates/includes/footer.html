@@ -1,0 +1,96 @@
+<footer class="bg-slate-900 text-slate-300 pt-16 pb-12 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+            <!-- Col 1: Brand & Bio -->
+            <div class="lg:col-span-2 space-y-4">
+                <a href="{% url 'core:home' %}" class="inline-block bg-white p-2.5 rounded-xl">
+                    <img src="/static/images/logo.svg" alt="Bright Edu Consultancy" class="h-10 w-auto">
+                </a>
+                <p class="text-sm text-slate-400 leading-relaxed pr-6">
+                    Bright Edu Consultancy is a government-registered premier international education consulting firm specializing in higher education in China, Chinese Government Scholarships (CSC), and global university admissions.
+                </p>
+                <div class="flex items-center space-x-3 pt-2">
+                    <a href="{{ site_info.FACEBOOK_URL }}" target="_blank" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-blue-600 text-white flex items-center justify-center transition">
+                        <i class="fa-brands fa-facebook-f text-sm"></i>
+                    </a>
+                    <a href="https://wa.me/{{ site_info.WHATSAPP }}" target="_blank" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-emerald-600 text-white flex items-center justify-center transition">
+                        <i class="fa-brands fa-whatsapp text-sm"></i>
+                    </a>
+                    <a href="#" class="trigger-wechat-modal w-9 h-9 rounded-lg bg-slate-800 hover:bg-emerald-500 text-white flex items-center justify-center transition" title="WeChat">
+                        <i class="fa-brands fa-weixin text-sm"></i>
+                    </a>
+                    <a href="{{ site_info.INSTAGRAM_URL }}" target="_blank" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-pink-600 text-white flex items-center justify-center transition">
+                        <i class="fa-brands fa-instagram text-sm"></i>
+                    </a>
+                    <a href="{{ site_info.LINKEDIN_URL }}" target="_blank" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-blue-500 text-white flex items-center justify-center transition">
+                        <i class="fa-brands fa-linkedin-in text-sm"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Col 2: Quick Links -->
+            <div class="space-y-3">
+                <h4 class="text-white text-sm font-bold uppercase tracking-wider">Quick Links</h4>
+                <ul class="space-y-2 text-sm text-slate-400">
+                    <li><a href="{% url 'core:home' %}" class="hover:text-amber-400 transition">Home</a></li>
+                    <li><a href="{% url 'core:about' %}" class="hover:text-amber-400 transition">About Bright Edu</a></li>
+                    <li><a href="{% url 'core:services' %}" class="hover:text-amber-400 transition">Our Services</a></li>
+                    <li><a href="{% url 'core:study_in_china' %}" class="hover:text-amber-400 transition">Study in China Guide</a></li>
+                    <li><a href="{% url 'universities:university_list' %}" class="hover:text-amber-400 transition">Universities &amp; Programs</a></li>
+                    <li><a href="{% url 'core:testimonials' %}" class="hover:text-amber-400 transition">Student Testimonials</a></li>
+                    <li><a href="{% url 'core:faq' %}" class="hover:text-amber-400 transition">FAQs &amp; Help</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 3: Student Portal & Apply -->
+            <div class="space-y-3">
+                <h4 class="text-white text-sm font-bold uppercase tracking-wider">Admissions &amp; Portal</h4>
+                <ul class="space-y-2 text-sm text-slate-400">
+                    <li><a href="{% url 'portal:apply' %}" class="text-amber-400 font-semibold hover:underline">Online Application Form</a></li>
+                    <li><a href="{% url 'portal:login' %}" class="hover:text-white transition">Student Portal Login</a></li>
+                    <li><a href="{% url 'portal:register' %}" class="hover:text-white transition">Create Student Account</a></li>
+                    <li><a href="{% url 'portal:dashboard' %}" class="hover:text-white transition">Application Tracking</a></li>
+                    <li><a href="{% url 'core:study_in_china' %}" class="hover:text-white transition">CSC Scholarship 2026</a></li>
+                    <li><a href="{% url 'portal:staff_dashboard' %}" class="hover:text-slate-500 text-xs">Counselor Portal</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 4: Contact & Newsletter -->
+            <div class="space-y-3">
+                <h4 class="text-white text-sm font-bold uppercase tracking-wider">Contact Info</h4>
+                <p class="text-xs text-slate-400 flex items-start">
+                    <i class="fa-solid fa-location-dot text-amber-500 mr-2 mt-0.5"></i>
+                    <span>{{ site_info.MAIN_OFFICE }}</span>
+                </p>
+                <p class="text-xs text-slate-400 flex items-start">
+                    <i class="fa-solid fa-building text-blue-400 mr-2 mt-0.5"></i>
+                    <span>{{ site_info.CHINA_OFFICE }}</span>
+                </p>
+                <p class="text-xs text-slate-400 flex items-center">
+                    <i class="fa-solid fa-phone text-emerald-400 mr-2"></i>
+                    <span>{{ site_info.PHONE }}</span>
+                </p>
+                <p class="text-xs text-slate-400 flex items-center">
+                    <i class="fa-solid fa-envelope text-red-400 mr-2"></i>
+                    <span>{{ site_info.EMAIL }}</span>
+                </p>
+                <div class="pt-3">
+                    <form action="{% url 'core:newsletter_subscribe' %}" method="post" class="flex flex-col space-y-2">
+                        {% csrf_token %}
+                        <input type="email" name="email" required placeholder="Subscribe for China Scholarship alerts" class="px-3 py-2 text-xs rounded-lg bg-slate-800 border border-slate-700 text-white placeholder-slate-500 outline-none focus:border-amber-500">
+                        <button type="submit" class="px-3 py-2 text-xs font-bold bg-amber-600 hover:bg-amber-500 text-white rounded-lg transition">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="pt-8 border-t border-slate-800 text-center md:flex md:justify-between items-center text-xs text-slate-500">
+            <p>&copy; {{ current_year }} {{ site_info.NAME }}. All Rights Reserved. ISO 9001:2015 Certified Educational Consultancy.</p>
+            <div class="flex justify-center space-x-6 mt-4 md:mt-0">
+                <span>Safe &amp; Secure Document Storage</span>
+                <span>•</span>
+                <span>Official China University Representative</span>
+            </div>
+        </div>
+    </div>
+</footer>
