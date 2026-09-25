@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}403 - Access Denied | Bright Edu Consultancy{% endblock %}
+
+{% block content %}
+<div class="min-h-[70vh] flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-xl w-full text-center">
+        <!-- Error Badge -->
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-50 border border-red-200 text-red-800 text-sm font-semibold mb-6">
+            <i class="fa-solid fa-lock text-red-600"></i>
+            <span>Error 403 &bull; Access Forbidden</span>
+        </div>
+
+        <h1 class="text-7xl sm:text-8xl font-black text-brand-blue tracking-tight mb-4 font-serif">403</h1>
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-800 mb-3">Access Denied</h2>
+        <p class="text-slate-600 text-base leading-relaxed mb-8">
+            You do not have permission to view this resource. Please make sure you are logged in with the correct account privileges.
+        </p>
+
+        <!-- Quick Action Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <a href="{% url 'portal:login' %}" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-xl bg-brand-blue text-white font-semibold shadow-md hover:bg-brand-bluedark transition-all duration-200">
+                <i class="fa-solid fa-right-to-bracket mr-2"></i> Log In to Portal
+            </a>
+            <a href="{% url 'core:home' %}" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-xl bg-white border border-slate-300 text-slate-700 font-semibold shadow-sm hover:bg-slate-50 transition-all duration-200">
+                <i class="fa-solid fa-house mr-2 text-brand-gold"></i> Return to Home
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

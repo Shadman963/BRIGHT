@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>500 - Server Error | Bright Edu Consultancy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-xl w-full text-center bg-white rounded-2xl p-8 sm:p-12 shadow-xl border border-slate-100">
+        <!-- Error Badge -->
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-50 border border-red-200 text-red-700 text-xs font-semibold mb-6">
+            <i class="fa-solid fa-triangle-exclamation text-red-500"></i>
+            <span>Error 500 &bull; Internal Server Error</span>
+        </div>
+
+        <h1 class="text-7xl sm:text-8xl font-black text-slate-900 tracking-tight mb-4">500</h1>
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-800 mb-3">Something went wrong on our end</h2>
+        <p class="text-slate-600 text-base leading-relaxed mb-8">
+            Our technical team has been notified and is looking into the problem. We apologize for the inconvenience and appreciate your patience.
+        </p>
+
+        <!-- Quick Action Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <a href="/" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-xl bg-blue-900 text-white font-semibold shadow hover:bg-blue-950 transition">
+                <i class="fa-solid fa-house mr-2"></i> Go to Homepage
+            </a>
+            <button onclick="window.location.reload()" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-xl bg-slate-100 border border-slate-300 text-slate-700 font-semibold hover:bg-slate-200 transition">
+                <i class="fa-solid fa-rotate-right mr-2 text-slate-500"></i> Reload Page
+            </button>
+        </div>
+
+        <!-- Help Section -->
+        <div class="mt-10 pt-6 border-t border-slate-100 text-xs text-slate-500">
+            Bright Edu Consultancy &bull; Global Education &amp; China Scholarship Portal
+        </div>
+    </div>
+</body>
+</html>
