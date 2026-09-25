@@ -33,7 +33,7 @@ SECRET_KEY = os.environ.get(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = get_bool_env('DEBUG', default=True)
+DEBUG = get_bool_env('DEBUG', default=False)
 
 # Warn if running in production with default insecure key
 if not DEBUG and SECRET_KEY.startswith('django-insecure-'):
