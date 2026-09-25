@@ -18,7 +18,7 @@ urlpatterns = [
 # WhiteNoise handles static files automatically in production.
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
 elif getattr(settings, 'SERVE_MEDIA_FILES', False):
     # Safe media serving fallback for standalone containers / VPS deployments
     urlpatterns += [

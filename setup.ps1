@@ -13,6 +13,9 @@ python manage.py migrate
 Write-Host "3. Seeding database with initial universities and users..." -ForegroundColor Green
 python manage.py seed_data
 
+Write-Host "4. Collecting static files..." -ForegroundColor Green
+python manage.py collectstatic --noinput
+
 Write-Host ""
 Write-Host "DEMO ACCOUNTS READY:" -ForegroundColor Yellow
 Write-Host "  * Superuser / Admin: admin / admin123" -ForegroundColor White

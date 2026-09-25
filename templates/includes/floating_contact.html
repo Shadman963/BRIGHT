@@ -1,3 +1,4 @@
+{% load static %}
 <!-- Floating Quick Contact Buttons -->
 <div class="fixed bottom-6 right-6 z-40 flex flex-col space-y-3 floating-contact-container">
     <!-- WeChat Floating Button -->
@@ -33,7 +34,7 @@
 
         <!-- QR Code Image -->
         <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl inline-block shadow-inner mb-4">
-            <img src="/static/images/wechat_qr.svg" alt="Bright Edu WeChat QR Code" class="w-48 h-48 mx-auto rounded-lg">
+            <img src="{% static 'images/wechat_qr.svg' %}" alt="Bright Edu WeChat QR Code" class="w-48 h-48 mx-auto rounded-lg">
         </div>
 
         <div class="bg-slate-100 rounded-xl p-3 flex items-center justify-between mb-4">

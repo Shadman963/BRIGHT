@@ -27,6 +27,10 @@ echo 4. Populating seed data (Universities, Programs, Demo Accounts)...
 python manage.py seed_data
 
 echo.
+echo 5. Collecting static files...
+python manage.py collectstatic --noinput
+
+echo.
 echo ===================================================
 echo   PORTAL DEMO ACCOUNTS CREATED:
 echo   - Admin Superuser: username: admin / password: admin123

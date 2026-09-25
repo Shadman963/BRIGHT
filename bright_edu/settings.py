@@ -33,8 +33,7 @@ SECRET_KEY = os.environ.get(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# Line 21: Set DEBUG to False by default for production safety
-DEBUG = get_bool_env('DEBUG', default=False)
+DEBUG = get_bool_env('DEBUG', default=True)
 
 # Warn if running in production with default insecure key
 if not DEBUG and SECRET_KEY.startswith('django-insecure-'):
@@ -167,6 +166,16 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # WhiteNoise storage for high performance static assets in production
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+WHITENOISE_USE_FINDERS = True
+
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+    },
+}
 
 # Media files (User uploads: documents, certificates, photos)
 MEDIA_URL = '/media/'

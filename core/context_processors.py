@@ -21,7 +21,7 @@ def site_settings(request):
     })
 
     user_application = None
-    if request.user.is_authenticated and not request.user.is_staff:
+    if hasattr(request, 'user') and request.user.is_authenticated and not request.user.is_staff:
         # Check if student has an existing application
         try:
             from portal.models import StudentApplication
