@@ -53,10 +53,22 @@ elif DEBUG:
 else:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
+# Render environment support
+render_external_hostname = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if render_external_hostname:
+    ALLOWED_HOSTS.extend([render_external_hostname, '.onrender.com'])
+
 # CSRF Trusted Origins (required for Django 4.0+ with HTTPS)
 csrf_origins_env = os.environ.get('CSRF_TRUSTED_ORIGINS')
-if csrf_origins_env:
-    CSRF_TRUSTED_ORIGINS = [origin.strip() for origin in csrf_origins_env.split(',') if origin.strip()]
+CSRF_TRUSTED_ORIGINS = (
+    [origin.strip() for origin in csrf_origins_env.split(',') if origin.strip()]
+    if csrf_origins_env else []
+)
+if render_external_hostname:
+    CSRF_TRUSTED_ORIGINS.extend([
+        f'https://{render_external_hostname}',
+        'https://*.onrender.com',
+    ])
 
 # Application definition
 INSTALLED_APPS = [
